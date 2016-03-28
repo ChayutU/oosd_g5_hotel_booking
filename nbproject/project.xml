@@ -5,10 +5,10 @@
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>AutoClick</name>
             <source-roots>
-                <root id="src.dir"/>
+                <root number="src.dir"/>
             </source-roots>
             <test-roots>
-                <root id="test.src.dir"/>
+                <root number="test.src.dir"/>
             </test-roots>
         </data>
     </configuration>

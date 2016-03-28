@@ -1,6 +1,7 @@
 package hotel_project.view;
 
 import hotel_project.DateLabelFormatter;
+import hotel_project.OutputPrinter;
 import hotel_project.control.SearchRoomAction;
 import hotel_project.model.DbService;
 import hotel_project.model.Room;
@@ -12,10 +13,18 @@ import org.jdatepicker.impl.UtilDateModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Vector;
+
+import static javax.swing.JOptionPane.QUESTION_MESSAGE;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 /**
  * Created by Chayut on 25-Mar-16.
@@ -115,6 +124,31 @@ public class RoomTab extends JPanel {
         JButton btnSearch = new JButton(searchRoomAction);
 
         searchPanel.add(btnSearch);
+
+        JButton btnBook = new JButton("Booking");
+
+        JButton btnCBook = new JButton("Cancel Booking");
+
+        JButton btnCIn = new JButton("Check-In");
+
+        JButton btnCOut = new JButton("Check-Out");
+
+        JPanel Book = new JPanel();
+        Book.setBackground(Color.decode("#f1f0ea"));
+        Book.setBorder(BorderFactory.createTitledBorder("Book"));
+
+        Book.add(btnBook);
+        Book.add(btnCBook);
+
+        JPanel Check = new JPanel();
+        Check.setBackground(Color.decode("#f1f0ea"));
+        Check.setBorder(BorderFactory.createTitledBorder("Check In & Out"));
+
+        Check.add(btnCIn);
+        Check.add(btnCOut);
+
+        bottomPanel.add(Book);
+        bottomPanel.add(Check);
 
         add(searchPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
