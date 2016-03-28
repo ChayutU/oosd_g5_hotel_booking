@@ -7,6 +7,7 @@ package hotel_project;
 
 
 import edu.sit.cs.db.CSDbDelegate;
+import hotel_project.view.MainFrame;
 
 /**
  *
@@ -15,17 +16,20 @@ import edu.sit.cs.db.CSDbDelegate;
 public class Main {
 
     public static void main(String[] args) {
-        MainMenu f1 = new MainMenu();
-        f1.setVisible(true);
-        //testZone();
+//        MainMenu f1 = new MainMenu();
+//        f1.setVisible(true);
+
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setVisible(true);
+
+
+//        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("Exit");
+//            }
+//        }, "Shutdown-thread"));
     }
 
-    public static void testZone() {
-        CSDbDelegate db = new CSDbDelegate("url", "port", "dbname", "user", "pw");
-        db.connect();
-        for (int i = 1; i < 8; i++) {
-            String sql = "INSERT INTO Hotel_room(room_number, room_type, room_cost, room_person) VALUES (21" + i  + ", 'GRAND LUXURY ROOM', 3000, 2)";
-            db.executeQuery(sql);
-        }
-    }
+
 }

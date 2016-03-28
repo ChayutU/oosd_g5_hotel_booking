@@ -68,13 +68,6 @@ public class MainMenu extends JFrame {
         tabPane.addTab("Customer", customer);
         tabPane.addTab("    Log    ", log);
         mainPanel.add(tabPane);
-
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            @Override
-            public void run() {
-                db.disconnect();
-            }
-        }, "Shutdown-thread"));
     }
 
     public int idCreator() {
@@ -496,6 +489,7 @@ public class MainMenu extends JFrame {
                 db.disconnect();
             }
         });
+
         JPanel Book = new JPanel();
         Book.setBackground(Color.decode("#f1f0ea"));
         Book.setBorder(BorderFactory.createTitledBorder("Book"));
