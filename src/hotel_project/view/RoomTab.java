@@ -3,6 +3,7 @@ package hotel_project.view;
 import hotel_project.DateLabelFormatter;
 import hotel_project.OutputPrinter;
 import hotel_project.control.BookingRoomAction;
+import hotel_project.control.CancelBookingRoomAction;
 import hotel_project.control.SearchRoomAction;
 import hotel_project.model.DbService;
 import hotel_project.model.Room;
@@ -126,11 +127,13 @@ public class RoomTab extends JPanel {
 
         searchPanel.add(btnSearch);
 
-        Action booingRoomAction = new BookingRoomAction(table, dateInPicker, dateOutPicker, btnSearch, service);
-        booingRoomAction.putValue(Action.NAME, "Booking");
-        JButton btnBook = new JButton(booingRoomAction);
+        Action bookingRoomAction = new BookingRoomAction(table, dateInPicker, dateOutPicker, btnSearch, service);
+        bookingRoomAction.putValue(Action.NAME, "Booking");
+        JButton btnBook = new JButton(bookingRoomAction);
 
-        JButton btnCBook = new JButton("Cancel Booking");
+        Action cancelBookingRoomAction = new CancelBookingRoomAction(table, dateInPicker, dateOutPicker, btnSearch, service);
+        cancelBookingRoomAction.putValue(Action.NAME, "Cancel Booking");
+        JButton btnCBook = new JButton(cancelBookingRoomAction);
 
         JButton btnCIn = new JButton("Check-In");
 

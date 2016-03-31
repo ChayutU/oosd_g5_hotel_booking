@@ -19,6 +19,9 @@ public interface Service {
     String whoBook(String room, String timeStampIn, String timeStampOut);
 
     void insertBook(String sql);
+    void cancelBook(String sql);
 
     int bookIdCreator();
+
+
 }

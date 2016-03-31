@@ -145,6 +145,13 @@ public class DbService implements Service {
     }
 
     @Override
+    public void cancelBook(String sql) {
+        db.connect();
+        db.executeQuery(sql);
+        db.disconnect();
+    }
+
+    @Override
     public int bookIdCreator() {
         int tmp = 0;
         String sql = "SELECT MAX(book_id) AS MAX FROM Hotel_book";
