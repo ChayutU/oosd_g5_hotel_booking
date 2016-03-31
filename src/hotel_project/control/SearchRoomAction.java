@@ -45,8 +45,8 @@ public class SearchRoomAction extends AbstractAction {
             line = 0;
         }
 
-        String timeStampIn = datePickerFormat(dateInPicker) + " 12:00:00";
-        String timeStampOut = datePickerFormat(dateOutPicker) + " 11:00:00";
+        String timeStampIn = service.datePickerFormat(dateInPicker) + " 12:00:00";
+        String timeStampOut = service.datePickerFormat(dateOutPicker) + " 11:00:00";
 
         if (checkDate(dateInPicker, dateOutPicker)) {
             String sql = "SELECT * FROM Hotel_room WHERE room_type = \"" + roomTypeBox.getSelectedItem()
@@ -59,7 +59,7 @@ public class SearchRoomAction extends AbstractAction {
 
             for (Room room : matchedRooms) {
                 String room_status = "Available";
-                String byId = whoBook(room.getNumber(), timeStampIn, timeStampOut);
+                String byId = service.whoBook(room.getNumber(), timeStampIn, timeStampOut);
 
                 if (!byId.equals("")) {
                     room_status = "On book by " + byId;
@@ -93,12 +93,6 @@ public class SearchRoomAction extends AbstractAction {
         return onService;
     }
 
-    private String datePickerFormat(JDatePickerImpl datePicker) {
-        String dd = "" + dateInPicker.getModel().getDay();
-        String mm = "" + (dateInPicker.getModel().getMonth() + 1);
-        String yyyy = "" + dateInPicker.getModel().getYear();
-        return yyyy + "-" + mm + "-" + dd;
-    }
 
     private boolean checkDate(JDatePickerImpl dateInPicker, JDatePickerImpl dateOutPicker) {
         if (Integer.valueOf(dateInPicker.getModel().getYear()) <= Integer.valueOf(dateOutPicker.getModel().getYear())) {

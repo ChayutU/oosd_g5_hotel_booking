@@ -1,5 +1,7 @@
 package hotel_project.model;
 
+import org.jdatepicker.impl.JDatePickerImpl;
+
 import java.util.ArrayList;
 
 /**
@@ -11,4 +13,12 @@ public interface Service {
     ArrayList<Book> searchBooks(String sql);
     ArrayList<Customer> searchCustomers(String sql);
     ArrayList<Log> searchLogs(String sql);
+
+    String datePickerFormat(JDatePickerImpl datePicker);
+    boolean validateCustomer(Integer id);
+    String whoBook(String room, String timeStampIn, String timeStampOut);
+
+    void insertBook(String sql);
+
+    int bookIdCreator();
 }

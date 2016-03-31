@@ -1,7 +1,9 @@
 package hotel_project.model;
 
 import edu.sit.cs.db.CSDbDelegate;
+import org.jdatepicker.impl.JDatePickerImpl;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -70,7 +72,7 @@ public class DbService implements Service {
             String sex = (String) customer.get("customer_sex");
             String tel = (String) customer.get("customer_tel");
             String address = (String) customer.get("customer_add");
-            String id = (String) customer.get("customer_id")  ;
+            String id = (String) customer.get("customer_id");
             customerList.add(new Customer(name, lastName, sex, tel, address, id));
         }
 
@@ -99,5 +101,61 @@ public class DbService implements Service {
         db.disconnect();
 
         return logList;
+    }
+
+    @Override
+    public String datePickerFormat(JDatePickerImpl datePicker) {
+        String dd = "" + datePicker.getModel().getDay();
+        String mm = "" + (datePicker.getModel().getMonth() + 1);
+        String yyyy = "" + datePicker.getModel().getYear();
+        return yyyy + "-" + mm + "-" + dd;
+    }
+
+    @Override
+    public boolean validateCustomer(Integer id) {
+        db.connect();
+        ArrayList<HashMap> member = db.queryRows("SELECT customer_id FROM Hotel_customer WHERE customer_id = " + id);
+        if (!member.isEmpty()) {
+            return true;
+        }
+        JOptionPane.showMessageDialog(null, "Invalid Member ID");
+        db.disconnect();
+        return false;
+    }
+
+    @Override
+    public String whoBook(String room, String timeIn, String timeOut) {
+        String sql = "SELECT * FROM Hotel_book WHERE (room_number = " + room + " AND '" + timeIn + "'>= book_dateIn AND book_dateOut >= '" + timeOut + "')"
+                + " OR (room_number = " + room + " AND '" + timeOut + "'>= book_dateIn AND book_dateOut >= '" + timeIn + "')";
+        ArrayList<Book> matchedBooks = searchBooks(sql);
+
+        for (Book book : matchedBooks) {
+            if (!matchedBooks.isEmpty()) {
+                return book.getCustomerId();
+            }
+        }
+        return "";
+    }
+
+    @Override
+    public void insertBook(String sql) {
+        db.connect();
+        db.executeQuery(sql);
+        db.disconnect();
+    }
+
+    @Override
+    public int bookIdCreator() {
+        int tmp = 0;
+        String sql = "SELECT MAX(book_id) AS MAX FROM Hotel_book";
+        ArrayList<HashMap> id = db.queryRows(sql);
+        for (HashMap ids : id) {
+            try {
+                tmp = Integer.parseInt((String) ids.get("MAX"));
+            } catch (NumberFormatException e) {
+                System.err.print("Book id creator ERROR >>> " + e);
+            }
+        }
+        return tmp + 1;
     }
 }

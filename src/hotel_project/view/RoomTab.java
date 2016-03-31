@@ -2,6 +2,7 @@ package hotel_project.view;
 
 import hotel_project.DateLabelFormatter;
 import hotel_project.OutputPrinter;
+import hotel_project.control.BookingRoomAction;
 import hotel_project.control.SearchRoomAction;
 import hotel_project.model.DbService;
 import hotel_project.model.Room;
@@ -125,7 +126,9 @@ public class RoomTab extends JPanel {
 
         searchPanel.add(btnSearch);
 
-        JButton btnBook = new JButton("Booking");
+        Action booingRoomAction = new BookingRoomAction(table, dateInPicker, dateOutPicker, btnSearch, service);
+        booingRoomAction.putValue(Action.NAME, "Booking");
+        JButton btnBook = new JButton(booingRoomAction);
 
         JButton btnCBook = new JButton("Cancel Booking");
 
@@ -159,9 +162,9 @@ public class RoomTab extends JPanel {
 
         String sql = "SELECT room_type FROM Hotel_room WHERE 1 GROUP BY room_type ORDER BY room_cost ASC";
         ArrayList<Room> roomTypeList = service.searchRooms(sql);
-        String[] roomType = new String[roomTypeList.size()+1];
+        String[] roomType = new String[roomTypeList.size() + 1];
         roomType[0] = "-";
-        int i =1;
+        int i = 1;
         for (Room room : roomTypeList) {
             roomType[i++] = room.getType();
         }
