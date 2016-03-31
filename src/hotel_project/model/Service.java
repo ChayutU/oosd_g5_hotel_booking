@@ -24,4 +24,7 @@ public interface Service {
     int bookIdCreator();
 
 
+    boolean onService(Integer roomNumber);
+
+    void checkIn(String id, String roomNumber);
 }

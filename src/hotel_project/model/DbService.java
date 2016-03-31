@@ -153,6 +153,7 @@ public class DbService implements Service {
 
     @Override
     public int bookIdCreator() {
+        db.connect();
         int tmp = 0;
         String sql = "SELECT MAX(book_id) AS MAX FROM Hotel_book";
         ArrayList<HashMap> id = db.queryRows(sql);
@@ -163,6 +164,33 @@ public class DbService implements Service {
                 System.err.print("Book id creator ERROR >>> " + e);
             }
         }
+        db.disconnect();
         return tmp + 1;
     }
+
+    @Override
+    public boolean onService(Integer roomNumber) {
+        db.connect();
+        String sql = "SELECT room_onService FROM Hotel_room WHERE room_number = " + roomNumber;
+        ArrayList<HashMap> service = db.queryRows(sql);
+        for (HashMap s : service) {
+            if (Integer.valueOf((String) s.get("room_onService")) == 1) {
+                return false;
+            }
+        }
+        db.disconnect();
+        return true;
+    }
+
+    @Override
+    public void checkIn(String id, String roomNumber) {
+        db.connect();
+        String sql1 = "INSERT INTO Hotel_log(customer_id, log_room) "
+                + "VALUES (" + id + ", " + roomNumber + ")";
+        String sql2 = "UPDATE Hotel_room SET room_onService = 1 WHERE room_number = " + roomNumber;
+        db.executeQuery(sql1);
+        db.executeQuery(sql2);
+        db.disconnect();
+    }
+
 }

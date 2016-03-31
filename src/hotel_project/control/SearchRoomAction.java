@@ -68,7 +68,7 @@ public class SearchRoomAction extends AbstractAction {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
                 Date date = new Date();
 
-                if (!onService(room) && timeStampIn.equals(dateFormat.format(date) + " 12:00:00")) {
+                if (!room.onService() && timeStampIn.equals(dateFormat.format(date) + " 12:00:00")) {
                     room_status = "Not available";
                 }
 
@@ -87,12 +87,6 @@ public class SearchRoomAction extends AbstractAction {
         }
     }
 
-    private boolean onService(Room room) {
-        boolean onService;
-        onService = (room.getOnService()).equals("1");
-        return onService;
-    }
-
 
     private boolean checkDate(JDatePickerImpl dateInPicker, JDatePickerImpl dateOutPicker) {
         if (Integer.valueOf(dateInPicker.getModel().getYear()) <= Integer.valueOf(dateOutPicker.getModel().getYear())) {
@@ -103,17 +97,6 @@ public class SearchRoomAction extends AbstractAction {
         return false;
     }
 
-    public String whoBook(String room, String timeIn, String timeOut) {
-        String sql = "SELECT * FROM Hotel_book WHERE (room_number = " + room + " AND '" + timeIn + "'>= book_dateIn AND book_dateOut >= '" + timeOut + "')"
-                + " OR (room_number = " + room + " AND '" + timeOut + "'>= book_dateIn AND book_dateOut >= '" + timeIn + "')";
-        ArrayList<Book> matchedBooks = service.searchBooks(sql);
 
-        for (Book book : matchedBooks) {
-            if (!matchedBooks.isEmpty()) {
-                return book.getCustomerId();
-            }
-        }
-        return "";
-    }
 
 }

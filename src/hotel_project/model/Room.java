@@ -19,8 +19,8 @@ public class Room {
         this.onService = onService;
     }
 
-    public String getOnService() {
-        return onService;
+    public boolean onService() {
+        return onService.equals("1");
     }
 
     public void setOnService(String onService) {
@@ -58,4 +58,5 @@ public class Room {
     public void setPrice(String price) {
         this.price = price;
     }
+
 }
