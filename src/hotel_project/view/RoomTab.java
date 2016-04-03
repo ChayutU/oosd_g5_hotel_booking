@@ -1,7 +1,6 @@
 package hotel_project.view;
 
-import hotel_project.DateLabelFormatter;
-import hotel_project.OutputPrinter;
+import hotel_project.model.DateLabelFormatter;
 import hotel_project.control.BookingRoomAction;
 import hotel_project.control.CancelBookingRoomAction;
 import hotel_project.control.CheckInAction;
@@ -16,18 +15,8 @@ import org.jdatepicker.impl.UtilDateModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
-import java.util.Vector;
-
-import static javax.swing.JOptionPane.QUESTION_MESSAGE;
-import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 /**
  * Created by Chayut on 25-Mar-16.

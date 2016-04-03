@@ -4,7 +4,9 @@ import edu.sit.cs.db.CSDbDelegate;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -190,6 +192,38 @@ public class DbService implements Service {
         String sql2 = "UPDATE Hotel_room SET room_onService = 1 WHERE room_number = " + roomNumber;
         db.executeQuery(sql1);
         db.executeQuery(sql2);
+        db.disconnect();
+    }
+
+    @Override
+    public int getLatestLogId(String roomNumber) {
+        db.connect();
+        int logId = 0;
+        String sql = "SELECT MAX(log_id) AS MAX FROM Hotel_log WHERE log_room = " + roomNumber;
+        ArrayList<HashMap> log = db.queryRows(sql);
+        for (HashMap l : log) {
+            try {
+                logId = Integer.parseInt((String) l.get("MAX"));
+            } catch (NumberFormatException er) {
+
+            }
+        }
+        db.disconnect();
+        return logId;
+    }
+
+    @Override
+    public void checkOut(int logId, String roomNumber) {
+        db.connect();
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+        String formattedDate = sdf.format(date);
+
+        String sql;
+        sql = "UPDATE Hotel_log SET log_dateOut = '" + formattedDate + "' WHERE log_id = " + logId;
+        db.executeQuery(sql);
+        sql = "UPDATE Hotel_room SET room_onService = 0 WHERE room_number = " + roomNumber;
+        db.executeQuery(sql);
         db.disconnect();
     }
 

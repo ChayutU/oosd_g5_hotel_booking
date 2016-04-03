@@ -17,14 +17,11 @@ public interface Service {
     String datePickerFormat(JDatePickerImpl datePicker);
     boolean validateCustomer(Integer id);
     String whoBook(String room, String timeStampIn, String timeStampOut);
-
+    boolean onService(Integer roomNumber);
+    int bookIdCreator();
     void insertBook(String sql);
     void cancelBook(String sql);
-
-    int bookIdCreator();
-
-
-    boolean onService(Integer roomNumber);
-
     void checkIn(String id, String roomNumber);
+    int getLatestLogId(String roomNumber);
+    void checkOut(int logId, String roomNumber);
 }

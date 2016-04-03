@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 
 /**
- * Created by Chayu on 31-Mar-16.
+ * Created by Chayut on 31-Mar-16.
  */
 public class CheckInAction extends AbstractAction {
 

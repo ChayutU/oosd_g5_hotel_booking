@@ -1,7 +1,7 @@
 package hotel_project.model;
 
 /**
- * Created by Chayu on 28-Mar-16.
+ * Created by Chayut on 28-Mar-16.
  */
 public class Book {
 

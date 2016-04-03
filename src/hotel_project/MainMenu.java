@@ -26,6 +26,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
+
+import hotel_project.model.DateLabelFormatter;
+import hotel_project.model.OutputPrinter;
 import org.jdatepicker.impl.*;
 import java.sql.Timestamp;
 import java.text.DateFormat;

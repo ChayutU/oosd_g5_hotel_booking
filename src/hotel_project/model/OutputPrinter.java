@@ -1,4 +1,4 @@
-package hotel_project;
+package hotel_project.model;
 
 import java.awt.Font;
 import java.awt.FontMetrics;

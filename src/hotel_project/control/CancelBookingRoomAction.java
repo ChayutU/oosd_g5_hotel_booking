@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 /**
- * Created by Chayu on 31-Mar-16.
+ * Created by Chayut on 31-Mar-16.
  */
 public class CancelBookingRoomAction extends AbstractAction {
 
