@@ -4,6 +4,8 @@ import edu.sit.cs.db.CSDbDelegate;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.*;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -225,6 +227,86 @@ public class DbService implements Service {
         sql = "UPDATE Hotel_room SET room_onService = 0 WHERE room_number = " + roomNumber;
         db.executeQuery(sql);
         db.disconnect();
+    }
+
+    @Override
+    public void printOutInvoice(int logId, int numberOfDay, double price) {
+        String dateIn = "";
+        String dateOut = "";
+        String name = "";
+        String customerId = "";
+        String roomNumber = "";
+        int day = numberOfDay;
+        double total = price;
+
+        db.connect();
+        String sql = "SELECT * FROM Hotel_log WHERE log_id = " + logId;
+        ArrayList<Log> logs = searchLogs(sql);
+        for (Log log : logs) {
+            dateIn = log.getDateIn();
+            dateOut = log.getDateOut();
+            customerId = log.getCustomerId();
+            roomNumber = log.getRoom();
+        }
+
+        sql = "SELECT * FROM Hotel_customer WHERE customer_id = " + customerId;
+        ArrayList<Customer> customers = searchCustomers(sql);
+        for (Customer customer : customers) {
+            name = customer.getName() + "  " + customer.getLastName();
+        }
+
+        db.disconnect();
+
+        String printData
+                = "\n"
+                + "                                                                        Invoice\n\n"
+                + "        Member ID : " + customerId + "\n"
+                + "        Guest Name :  " + name + "\n\n"
+                + "        __________________________________________________________________________\n"
+                + "        Date-In                               Date-Out                           Room No.        Day               Total\n"
+                + "        __________________________________________________________________________\n"
+                + "        " + dateIn + "      " + dateOut + "      " + roomNumber + "                       " + day + "                  " + total + "\n";
+
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setPrintable(new OutputPrinter(printData));
+        boolean doPrint = job.printDialog();
+        if (doPrint) {
+            try {
+                job.print();
+            } catch (PrinterException err) {
+                // Print job did not complete.
+            }
+        }
+    }
+
+    @Override
+    public int getNumberOfDay(int logId) {
+        int days = 0;
+        db.connect();
+        String sql = "SELECT DATEDIFF(log_dateOut,log_dateIn) AS DiffDate FROM Hotel_log WHERE log_id = " + logId;
+        ArrayList<HashMap> day = db.queryRows(sql);
+        for (HashMap d : day) {
+            days = Integer.valueOf((String) d.get("DiffDate"));
+            if (days == 0) {
+                days = 1;
+            }
+        }
+        db.disconnect();
+        return days;
+    }
+
+    @Override
+    public double calculatePrice(String roomNumber, int numberOfDay) {
+        db.connect();
+        double price = 0.0;
+        String sql = "SELECT * FROM Hotel_room WHERE room_number = " + roomNumber;
+        ArrayList<Room> rooms = searchRooms(sql);
+        for (Room room : rooms) {
+            int cost = Integer.valueOf(room.getPrice());
+            price = numberOfDay * cost;
+        }
+        db.disconnect();
+        return price;
     }
 
 }

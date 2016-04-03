@@ -1,5 +1,6 @@
 package hotel_project.control;
 
+import hotel_project.model.Room;
 import hotel_project.model.Service;
 
 import javax.swing.*;
@@ -41,8 +42,14 @@ public class CheckOutAction extends AbstractAction {
 
                         service.checkOut(logId, roomNumber);
 
-                        //Print invoice here
 
+
+                        int numberOfDay = service.getNumberOfDay(logId);
+
+                        double price = service.calculatePrice(roomNumber, numberOfDay);
+
+                        //Print invoice here
+                        service.printOutInvoice(logId, numberOfDay, price);
                     }
                 }
             }

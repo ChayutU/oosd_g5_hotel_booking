@@ -1,10 +1,7 @@
 package hotel_project.view;
 
+import hotel_project.control.*;
 import hotel_project.model.DateLabelFormatter;
-import hotel_project.control.BookingRoomAction;
-import hotel_project.control.CancelBookingRoomAction;
-import hotel_project.control.CheckInAction;
-import hotel_project.control.SearchRoomAction;
 import hotel_project.model.DbService;
 import hotel_project.model.Room;
 import hotel_project.model.Service;
@@ -129,7 +126,9 @@ public class RoomTab extends JPanel {
         checkInAction.putValue(Action.NAME, "Check-In");
         JButton btnCIn = new JButton(checkInAction);
 
-        JButton btnCOut = new JButton("Check-Out");
+        Action checkOutAction = new CheckOutAction(table, btnSearch, service);
+        checkOutAction.putValue(Action.NAME, "Check-Out");
+        JButton btnCOut = new JButton(checkOutAction);
 
         JPanel Book = new JPanel();
         Book.setBackground(Color.decode("#f1f0ea"));

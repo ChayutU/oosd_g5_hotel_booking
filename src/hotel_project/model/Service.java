@@ -18,10 +18,18 @@ public interface Service {
     boolean validateCustomer(Integer id);
     String whoBook(String room, String timeStampIn, String timeStampOut);
     boolean onService(Integer roomNumber);
+
     int bookIdCreator();
+
     void insertBook(String sql);
     void cancelBook(String sql);
+
     void checkIn(String id, String roomNumber);
-    int getLatestLogId(String roomNumber);
     void checkOut(int logId, String roomNumber);
+    double calculatePrice(String roomNumber, int numberOfDay);
+    void printOutInvoice(int logId, int numberOfDay, double price);
+
+    int getLatestLogId(String roomNumber);
+    int getNumberOfDay(int logId);
+
 }
