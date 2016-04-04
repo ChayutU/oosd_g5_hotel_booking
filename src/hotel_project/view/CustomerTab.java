@@ -23,8 +23,6 @@ public class CustomerTab extends JPanel {
         nmemberPanel.setBackground(Color.decode("#c0c0c0"));
         JPanel searchPanel = new JPanel();
         searchPanel.setBackground(Color.decode("#c0c0c0"));
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(Color.decode("#c0c0c0"));
 
         nmemberPanel.setBorder(BorderFactory.createTitledBorder("New Member"));
         nmemberPanel.setPreferredSize(new Dimension(750, 100));
