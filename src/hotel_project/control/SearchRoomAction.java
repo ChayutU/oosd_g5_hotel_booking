@@ -68,7 +68,7 @@ public class SearchRoomAction extends AbstractAction {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
                 Date date = new Date();
 
-                if (!room.onService() && timeStampIn.equals(dateFormat.format(date) + " 12:00:00")) {
+                if (room.onService() && timeStampIn.equals(dateFormat.format(date) + " 12:00:00")) {
                     room_status = "Not available";
                 }
 

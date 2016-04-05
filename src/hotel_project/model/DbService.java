@@ -218,7 +218,7 @@ public class DbService implements Service {
     public void checkOut(int logId, String roomNumber) {
         db.connect();
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String formattedDate = sdf.format(date);
 
         String sql;
