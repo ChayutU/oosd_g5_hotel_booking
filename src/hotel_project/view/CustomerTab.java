@@ -1,5 +1,7 @@
 package hotel_project.view;
 
+import hotel_project.control.AddCustomerAction;
+import hotel_project.control.SearchCustomerAction;
 import hotel_project.model.DbService;
 import hotel_project.model.Service;
 
@@ -19,51 +21,53 @@ public class CustomerTab extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.decode("#976241"));
 
-        JPanel nmemberPanel = new JPanel();
-        nmemberPanel.setBackground(Color.decode("#c0c0c0"));
+        JPanel memberPanel = new JPanel();
+        memberPanel.setBackground(Color.decode("#c0c0c0"));
         JPanel searchPanel = new JPanel();
         searchPanel.setBackground(Color.decode("#c0c0c0"));
 
-        nmemberPanel.setBorder(BorderFactory.createTitledBorder("New Member"));
-        nmemberPanel.setPreferredSize(new Dimension(750, 100));
-        nmemberPanel.setMaximumSize(new Dimension(750, 100));
-        nmemberPanel.setBackground(Color.decode("#f1f0ea"));
-        nmemberPanel.setForeground(Color.decode("#6e4627"));
+        memberPanel.setBorder(BorderFactory.createTitledBorder("New Member"));
+        memberPanel.setPreferredSize(new Dimension(750, 100));
+        memberPanel.setMaximumSize(new Dimension(750, 100));
+        memberPanel.setBackground(Color.decode("#f1f0ea"));
+        memberPanel.setForeground(Color.decode("#6e4627"));
 
         JLabel lblName = new JLabel("Name");
-        JTextField nameText = new JTextField(15);
+        JTextField nameField = new JTextField(15);
 
-        JLabel lblLastname = new JLabel("Lastname");
-        JTextField lnameText = new JTextField(15);
+        JLabel lblLastName = new JLabel("Lastname");
+        JTextField lastNameField = new JTextField(15);
 
-        JLabel lblsex = new JLabel("sex");
-        String[] gSex = {"Male", "Female"};
-        JComboBox sexBox = new JComboBox(gSex);
+        JLabel lblSex = new JLabel("sex");
+        String[] sex = {"Male", "Female"};
+        JComboBox sexBox = new JComboBox(sex);
 
         JLabel Tel = new JLabel("Tel.");
-        JTextField telText = new JTextField(11);
+        JTextField telField = new JTextField(11);
 
-        JLabel lbladdress = new JLabel("Address");
-        JTextField addressText = new JTextField(50);
+        JLabel lblAddress = new JLabel("Address");
+        JTextField addressField = new JTextField(50);
 
-        JButton submit = new JButton("submit");
+        Action addCustomerAction = new AddCustomerAction(nameField, lastNameField, telField, addressField, sexBox, sex, service);
+        addCustomerAction.putValue(Action.NAME, "Submit");
+        JButton addCustomer = new JButton(addCustomerAction);
 
-        nmemberPanel.add(lblName);
-        nmemberPanel.add(nameText);
+        memberPanel.add(lblName);
+        memberPanel.add(nameField);
 
-        nmemberPanel.add(lblLastname);
-        nmemberPanel.add(lnameText);
+        memberPanel.add(lblLastName);
+        memberPanel.add(lastNameField);
 
-        nmemberPanel.add(lblsex);
-        nmemberPanel.add(sexBox);
+        memberPanel.add(lblSex);
+        memberPanel.add(sexBox);
 
-        nmemberPanel.add(Tel);
-        nmemberPanel.add(telText);
+        memberPanel.add(Tel);
+        memberPanel.add(telField);
 
-        nmemberPanel.add(lbladdress);
-        nmemberPanel.add(addressText);
+        memberPanel.add(lblAddress);
+        memberPanel.add(addressField);
 
-        nmemberPanel.add(submit);
+        memberPanel.add(addCustomer);
 
         searchPanel.setBorder(BorderFactory.createTitledBorder("Search Member"));
         searchPanel.setForeground(new Color(240, 250, 240));
@@ -75,11 +79,11 @@ public class CustomerTab extends JPanel {
         String search[] = {"ID", "Name or Last Name", "Tel."};
         JComboBox boxSearch = new JComboBox(search);
 
-        JTextField searchf = new JTextField(15);
+        JTextField searchField = new JTextField(15);
 
         searchPanel.add(lblSearch);
         searchPanel.add(boxSearch);
-        searchPanel.add(searchf);
+        searchPanel.add(searchField);
 
         JScrollPane scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -90,21 +94,11 @@ public class CustomerTab extends JPanel {
         tModel = new DefaultTableModel() {
 
             boolean[] canEdit = new boolean[]{
-                    true, false, false, false, false, false
+                    false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
-            }
-
-            @Override
-            public Class<?> getColumnClass(int column) {
-                switch (column) {
-                    case 0:
-                        return Boolean.class;
-                    default:
-                        return String.class;
-                }
             }
         };
 
@@ -117,12 +111,14 @@ public class CustomerTab extends JPanel {
         tModel.addColumn("Tel");
         tModel.addColumn("Address");
 
-        JButton btnSearch = new JButton(" Search ");
+        Action searchCustomerAction = new SearchCustomerAction(tModel, searchField, boxSearch, service);
+        searchCustomerAction.putValue(Action.NAME, " Search ");
+        JButton btnSearch = new JButton(searchCustomerAction);
 
         searchPanel.add(btnSearch);
 
         add(Box.createRigidArea(new Dimension(0,10)));
-        add(nmemberPanel, BorderLayout.NORTH);
+        add(memberPanel, BorderLayout.NORTH);
         add(Box.createRigidArea(new Dimension(0,10)));
         add(searchPanel, BorderLayout.CENTER);
         add(Box.createRigidArea(new Dimension(0,10)));

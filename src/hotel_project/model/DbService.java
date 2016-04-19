@@ -309,4 +309,33 @@ public class DbService implements Service {
         return price;
     }
 
+    @Override
+    public int customerIdCreator() {
+        int tmp = 0;
+        String sql = "SELECT MAX(customer_id) AS MAX FROM Hotel_customer";
+        ArrayList<HashMap> id = db.queryRows(sql);
+        for (HashMap ids : id) {
+            try {
+                tmp = Integer.parseInt((String) ids.get("MAX"));
+            } catch (NumberFormatException e) {
+
+            }
+        }
+        return tmp + 1;
+    }
+
+    @Override
+    public boolean addCustomer(JTextField nameTextField, JTextField lastNameTextField, JTextField telField, JTextField addField, JComboBox sexBox) {
+        boolean canAdd;
+        db.connect();
+        String sql = "INSERT INTO Hotel_customer(customer_name, customer_lastName, customer_sex, customer_tel, customer_add, customer_id)"
+                + "VALUES(" + "'" + nameTextField.getText() + "'" + "," + "'" + lastNameTextField.getText() + "'" + "," + "'" + sexBox.getSelectedItem().toString() + "'"
+                + "," + "'" + telField.getText() + "'" + "," + "'" + addField.getText() + "'" + "," + "'" + customerIdCreator() + "'" + ")";
+        System.out.println(sql);
+        canAdd = db.executeQuery(sql);
+        System.out.println(canAdd);
+        db.disconnect();
+        return canAdd;
+    }
+
 }

@@ -2,6 +2,7 @@ package hotel_project.model;
 
 import org.jdatepicker.impl.JDatePickerImpl;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -32,4 +33,6 @@ public interface Service {
     int getLatestLogId(String roomNumber);
     int getNumberOfDay(int logId);
 
+    public int customerIdCreator();
+    boolean addCustomer(JTextField nameTextField, JTextField lastNameTextField, JTextField telField, JTextField addField, JComboBox sexBox);
 }

@@ -1,15 +1,10 @@
 package hotel_project.control;
 
-import hotel_project.MainMenu;
-import hotel_project.model.Customer;
 import hotel_project.model.Service;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 

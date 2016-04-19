@@ -150,6 +150,7 @@ public class RoomTab extends JPanel {
         add(searchPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
+
     }
 
     public String[] getRoomType() {
