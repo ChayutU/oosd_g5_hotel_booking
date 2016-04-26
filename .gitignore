@@ -1,2 +1,9 @@
 /nbproject/private/
 /build/
+/out/
+/nbproject/
+/.idea/
+applet.policy
+build.xml
+diagram.png
+Hotel_project.iml
