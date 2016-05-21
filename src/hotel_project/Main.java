@@ -9,6 +9,8 @@ package hotel_project;
 import edu.sit.cs.db.CSDbDelegate;
 import hotel_project.view.MainFrame;
 
+import javax.swing.*;
+
 /**
  *
  * @author Chayut

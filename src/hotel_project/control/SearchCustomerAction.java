@@ -66,7 +66,7 @@ public class SearchCustomerAction extends AbstractAction {
             tModel.setValueAt(customer.getName(), line, 1);
             tModel.setValueAt(customer.getLastName(), line, 2);
             tModel.setValueAt(customer.getSex(), line, 3);
-            tModel.setValueAt(customer.getSex(), line, 4);
+            tModel.setValueAt(customer.getTel(), line, 4);
             tModel.setValueAt(customer.getAddress(), line, 5);
             line = line + 1;
         }
